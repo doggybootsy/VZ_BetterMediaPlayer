@@ -1,0 +1,8 @@
+{
+  "icon": "assets/icon.png",
+  "name": "Better Media Player",
+  "version": "1.0.0",
+  "description": "Add more features to the media player in discord",
+  "author": "doggybootsy",
+  "license": "MIT"
+}
