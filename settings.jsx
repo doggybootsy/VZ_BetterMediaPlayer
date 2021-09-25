@@ -1,21 +1,5 @@
 import React from "react"
 import { SwitchItem, Category, SliderInput } from "@vizality/components/settings"
-
-class Group extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { toggled: false }
-    }
-    render() {
-        return (
-            <Category 
-                name={this.props.name} 
-                description={this.props.description} 
-                opened={this.state.toggled} 
-            >{this.props.children}</Category>
-        )
-    } 
-}
 module.exports = class Settings extends React.PureComponent {
 	constructor(props) {
 		super(props)
@@ -28,13 +12,13 @@ module.exports = class Settings extends React.PureComponent {
 		const { getSetting, updateSetting, toggleSetting } = this.props
 		return (
             <>
-                <Group name="Loop" description="Loop configuration">
+                <Category title="Loop" description="Loop configuration">
                     <SwitchItem 
                         value={getSetting("button_loop", true)} 
                         description="Loop videos in a simple click" 
                         onChange={() => {
-                            this.setState({loop: !this.state.loop})
                             toggleSetting("button_loop")
+                            this.setState({loop: getSetting("button_loop", true)})
                         }}
                     >Loop button</SwitchItem>
                     <SliderInput
@@ -50,17 +34,17 @@ module.exports = class Settings extends React.PureComponent {
                     >Position for the loop button</SliderInput>
                     <SwitchItem 
                         value={getSetting("auto_loop", false)} 
-                        description="Automatically loop videos" 
+                        description="Automatically loop videos, Needs the loop button" 
                         onChange={() => toggleSetting("auto_loop")}
                     >Auto loop</SwitchItem>
-                </Group>
-                <Group name="Picture in picture" description="Picture in picture configuration">
+                </Category>
+                <Category title="Picture in picture" description="Picture in picture configuration">
                     <SwitchItem 
                         value={getSetting("button_pip", true)} 
                         description="Picture In Picture in a simple click" 
                         onChange={() => {
-                            this.setState({pip: !this.state.pip})
                             toggleSetting("button_pip")
+                            this.setState({loop: getSetting("button_pip", true)})
                         }}
                     >PIP button</SwitchItem>
                     <SliderInput
@@ -74,7 +58,7 @@ module.exports = class Settings extends React.PureComponent {
                         disabled={!this.state.pip}
                         note="Move the loop button to different spots"
                     >Position for the PIP button</SliderInput>
-                </Group>
+                </Category>
             </>
 		)
 	}

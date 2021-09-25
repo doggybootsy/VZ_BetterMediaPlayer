@@ -2,7 +2,7 @@ import React from "react"
 import { Plugin } from "@vizality/entities"
 import { patch, unpatch } from "@vizality/patcher"
 import { getModule } from '@vizality/webpack'
-import {PipIcon, LoopIcon} from "./Buttons"
+import { PipIcon, LoopIcon } from "./Buttons"
 const Contols = getModule("Controls").Controls
 
 module.exports = class BetterMediaPlayer extends Plugin {
@@ -11,13 +11,11 @@ module.exports = class BetterMediaPlayer extends Plugin {
 	}
 	observer() {
 		const { get } = this.settings
-		const callback = function(mutationsList, observer) {
-			for(const mutation of mutationsList) {
-				if (get("auto_loop", false) === true && document.querySelector("#Loop:not(.looped)")) {
-					for (const ele of document.querySelectorAll("#Loop:not(.looped)")) {
-						ele.classList.add("looped")
-						ele.parentElement.previousSibling.loop = true
-					}
+		const callback = function() {
+			if (get("auto_loop", false) === true && document.querySelector("#Loop:not(.looped)")) {
+				for (const ele of document.querySelectorAll("#Loop:not(.looped)")) {
+					ele.classList.add("looped")
+					ele.parentElement.previousSibling.loop = true
 				}
 			}
 		}
