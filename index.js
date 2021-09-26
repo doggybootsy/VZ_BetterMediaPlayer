@@ -1,26 +1,14 @@
 import React from "react"
 import { Plugin } from "@vizality/entities"
-import { patch, unpatch } from "@vizality/patcher"
-import { getModule } from '@vizality/webpack'
+import { patch } from "@vizality/patcher"
+import { getModule, getModuleByDisplayName } from '@vizality/webpack'
 import { PipIcon, LoopIcon } from "./Buttons"
 const Contols = getModule("Controls").Controls
+const MediaPlayer = getModuleByDisplayName("MediaPlayer")
 
 module.exports = class BetterMediaPlayer extends Plugin {
 	constructor() {
 		super()
-	}
-	observer() {
-		const { get } = this.settings
-		const callback = function() {
-			if (get("auto_loop", false) === true && document.querySelector("#Loop:not(.looped)")) {
-				for (const ele of document.querySelectorAll("#Loop:not(.looped)")) {
-					ele.classList.add("looped")
-					ele.parentElement.previousSibling.loop = true
-				}
-			}
-		}
-		this._observer = new MutationObserver(callback)
-		this._observer.observe(document.getElementById('app-mount'), { attributes: true, childList: true, subtree: true })
 	}
 	PIP(node) {
 		try {
@@ -38,15 +26,14 @@ module.exports = class BetterMediaPlayer extends Plugin {
 	}
 	start() {
 		const { get } = this.settings
-		this.observer()
-		unpatch("BetterMediaPlayer")
-		patch("BetterMediaPlayer", Contols.prototype, "render", (_, res) => {
+		patch("BetterMediaPlayer-Contols", Contols.prototype, "render", (_, res) => {
 			if(get("button_pip", true) === true) res.props.children.splice(get("position_pip", 1), 0, React.createElement(PipIcon, {instance: this}))
-			if(get("button_loop", true) === true) res.props.children.splice(get("position_loop", 1), 0, React.createElement(LoopIcon, {instance: this, active: get("auto_loop", false)}))
-			return res
+			if(get("button_loop", true) === true) res.props.children.splice(get("position_loop", 1), 0, React.createElement(LoopIcon, {instance: this, active: get("auto_loop", true)}))
+		})
+		patch("BetterMediaPlayer-AutoLoop", MediaPlayer.prototype, "renderVideo", (_, res) => {
+			if(get("auto_loop", true)) res.props.loop = true
 		})
 	}
 	stop() {
-		this._observer.disconnect()
 	}
 }

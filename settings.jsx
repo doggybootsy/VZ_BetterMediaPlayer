@@ -33,8 +33,8 @@ module.exports = class Settings extends React.PureComponent {
                         note="Move the loop button to different spots"
                     >Position for the loop button</SliderInput>
                     <SwitchItem 
-                        value={getSetting("auto_loop", false)} 
-                        description="Automatically loop videos, Needs the loop button" 
+                        value={getSetting("auto_loop", true)} 
+                        description="Automatically loop videos" 
                         onChange={() => toggleSetting("auto_loop")}
                     >Auto loop</SwitchItem>
                 </Category>
