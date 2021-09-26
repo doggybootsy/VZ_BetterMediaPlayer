@@ -9,7 +9,7 @@ class LoopIcon extends React.PureComponent {
 	render() {
 		return (
 			<svg className={controlIcon} aria-hidden="false" id="Loop" width="16" height="16" viewBox="-5 0 459 459.648" xmlns="http://www.w3.org/2000/svg" onClick={e => {
-					this.props.instance.Loop(e.target.id === "Loop" ? e.target : e.target.parentElement)
+					this.props.instance.Loop(e.target.id === "Loop" ? e.target.parentElement.previousSibling : e.target.parentElement.parentElement.previousSibling)
 					this.setState({ active: !this.state.active })
 				}}>
 				<path fill={this.state.active === true ? "var(--brand-experiment)" : "currentColor"} d="m416.324219 293.824219c0 26.507812-21.492188 48-48 48h-313.375l63.199219-63.199219-22.625-22.625-90.511719 90.511719c-6.246094 6.25-6.246094 16.375 0 22.625l90.511719 90.511719 22.625-22.625-63.199219-63.199219h313.375c44.160156-.054688 79.945312-35.839844 80-80v-64h-32zm0 0"></path>
@@ -26,7 +26,7 @@ class PipIcon extends React.PureComponent {
 	render() {
 		return (
 			<svg className={controlIcon} aria-hidden="false" id="PIP" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" onClick={e => {
-					this.props.instance.PIP(e.target.id === "PIP" ? e.target : e.target.parentElement)
+					this.props.instance.PIP(e.target.id === "PIP" ? e.target.parentElement.previousSibling : e.target.parentElement.parentElement.previousSibling)
 					this.setState({ active: !this.state.active })
 				}}>
 				<path fill="transparent" d="M0 0h24v24H0V0z"></path>

@@ -23,9 +23,11 @@ module.exports = class BetterMediaPlayer extends Plugin {
 			if(document.pictureInPictureElement) 
 				document.exitPictureInPicture()
 			else 
-				node.parentNode.previousSibling.requestPictureInPicture()
-			node.parentNode.previousSibling.addEventListener("leavepictureinpicture", leavepip)
-			const leavepip = () => node.parentNode.previousSibling.removeEventListener("leavepictureinpicture", leavepip)
+				node.requestPictureInPicture()
+			node.addEventListener("leavepictureinpicture", leavepip)
+			function leavepip() {
+				node.removeEventListener("leavepictureinpicture", leavepip)
+			}
 		} 
 		catch(e){
 			this.error(e)
@@ -33,8 +35,7 @@ module.exports = class BetterMediaPlayer extends Plugin {
 	}
 	Loop(node) {
 		try {
-			const ele = node.parentNode.previousSibling
-			ele.loop = !ele.loop
+			node.loop = !node.loop
 		} 
 		catch (e) {
 			this.error(e)
