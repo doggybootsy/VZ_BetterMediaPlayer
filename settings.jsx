@@ -44,7 +44,7 @@ module.exports = class Settings extends React.PureComponent {
                         description="Picture In Picture in a simple click" 
                         onChange={() => {
                             toggleSetting("button_pip")
-                            this.setState({loop: getSetting("button_pip", true)})
+                            this.setState({pip: getSetting("button_pip", true)})
                         }}
                     >PIP button</SwitchItem>
                     <SliderInput
