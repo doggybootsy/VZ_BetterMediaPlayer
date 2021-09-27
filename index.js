@@ -11,29 +11,13 @@ const { openModal } = getModule("openModal")
 module.exports = class BetterMediaPlayer extends Plugin {
 	constructor() {super()}
 	error(e) {
+		console.error(this.props.error)
 		openModal(props => {
 			return React.createElement(ModalRoot, Object.assign({
 				size: ModalSize.SMALL,
 				children: React.createElement(Alert, {error: e, onClose: props.onClose})
 			}, props))
 		})
-	}
-	PIP(node) {
-		try {
-			if(document.pictureInPictureElement) 
-				document.exitPictureInPicture()
-			else 
-				node.requestPictureInPicture()
-			node.addEventListener("leavepictureinpicture", leavepip)
-			function leavepip() {
-				node.removeEventListener("leavepictureinpicture", leavepip)
-			}
-		} 
-		catch(e){this.error(e)}
-	}
-	Loop(node) {
-		try {node.loop = !node.loop} 
-		catch (e) {this.error(e)}
 	}
 	start() {
 		const { get } = this.settings
