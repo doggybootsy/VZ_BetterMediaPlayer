@@ -6,6 +6,7 @@ const Channel = getModuleByPrototypes(["isGroupDM"])
 const Message = getModuleByPrototypes(["addReaction"])
 const SpoofChannel = new Channel({channel_id: "-7",name: "Better Media Player"})
 const Timestamp = getModule("isMoment")
+const Buttons = getModule("ButtonLooks")
 const demo_urls = [
     "credit to whoever posted these",
     {
@@ -68,10 +69,10 @@ const demo_urls = [
 class FakeMessage extends React.PureComponent {
 	constructor(props) {
 		super(props)
-        this.state = { active: false }
+        this.state = { ran: Math.floor(Math.random() * Object.keys(demo_urls).pop() + 1) }
 	}
 	render() {
-        const demo_url_num = this.props.demo_url_num
+        const demo_url_num = this.state.ran
         const SpoofMessage = new Message({
             author: getCurrentUser.getCurrentUser(),
             timestamp: Timestamp(),
@@ -90,7 +91,10 @@ class FakeMessage extends React.PureComponent {
             ]
         })
 		return (
-            <ChannelMessage channel={SpoofChannel} message={SpoofMessage}></ChannelMessage>
+            <>
+                <ChannelMessage channel={SpoofChannel} message={SpoofMessage} />
+                <Buttons.default onClick={() => this.setState({ ran: Math.floor(Math.random() * Object.keys(demo_urls).pop() + 1) })}>New video</Buttons.default>
+            </>
 		)
 	}
 }

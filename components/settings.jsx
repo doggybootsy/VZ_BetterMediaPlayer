@@ -25,7 +25,7 @@ module.exports = class Settings extends React.PureComponent {
             <>
                 <Category opened={true} onClick={(e) => this.Cat_onClick(e, "cat_demo")} title="Demo" description="little preview" icon={
                     <Icon name={this.state.cat_demo === true ? "Eye" : "EyeHidden"} width="2rem" height="2rem" style={{padding: ".25rem"}}/>
-                }><FakeMessage demo_url_num={Math.floor(Math.random() * 7 + 1)} /></Category>
+                }><FakeMessage /></Category>
                 <Category onClick={(e) => this.Cat_onClick(e, "cat_loop")} title="Loop" description="Loop configuration" icon={
 			        <svg width="1.75rem" height="1.75rem" style={{padding: ".5rem"}} viewBox="-5 0 459 459.648" xmlns="http://www.w3.org/2000/svg">
 				        <path style={{transition: "fill 0.2s"}} fill={this.state.cat_loop === true ? "var(--brand-experiment)" : "currentColor"} d="m416.324219 293.824219c0 26.507812-21.492188 48-48 48h-313.375l63.199219-63.199219-22.625-22.625-90.511719 90.511719c-6.246094 6.25-6.246094 16.375 0 22.625l90.511719 90.511719 22.625-22.625-63.199219-63.199219h313.375c44.160156-.054688 79.945312-35.839844 80-80v-64h-32zm0 0"></path>
