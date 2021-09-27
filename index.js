@@ -2,8 +2,8 @@ import React from "react"
 import { Plugin } from "@vizality/entities"
 import { patch } from "@vizality/patcher"
 import { getModule, getModuleByDisplayName } from '@vizality/webpack'
-import { PipIcon, LoopIcon } from "./Buttons"
-import { Alert } from "./Alert"
+import { PipIcon, LoopIcon } from "./components/Buttons"
+import { Alert } from "./components/Alert"
 const Contols = getModule("Controls").Controls
 const MediaPlayer = getModuleByDisplayName("MediaPlayer")
 const { ModalRoot, ModalSize } = getModule("ModalRoot")
@@ -29,17 +29,11 @@ module.exports = class BetterMediaPlayer extends Plugin {
 				node.removeEventListener("leavepictureinpicture", leavepip)
 			}
 		} 
-		catch(e){
-			this.error(e)
-		}
+		catch(e){this.error(e)}
 	}
 	Loop(node) {
-		try {
-			node.loop = !node.loop
-		} 
-		catch (e) {
-			this.error(e)
-		}
+		try {node.loop = !node.loop} 
+		catch (e) {this.error(e)}
 	}
 	start() {
 		const { get } = this.settings
