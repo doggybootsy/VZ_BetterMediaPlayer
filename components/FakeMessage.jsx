@@ -66,6 +66,7 @@ const demo_urls = [
         width:      300
     }
 ]
+const TooltipWrapper = getModuleByPrototypes(["renderTooltip"])
 class FakeMessage extends React.PureComponent {
 	constructor(props) {
 		super(props)
@@ -92,8 +93,15 @@ class FakeMessage extends React.PureComponent {
         })
 		return (
             <>
-                <ChannelMessage channel={SpoofChannel} message={SpoofMessage} />
-                <Buttons.default onClick={() => this.setState({ ran: Math.floor(Math.random() * Object.keys(demo_urls).pop() + 1) })}>New video</Buttons.default>
+                <TooltipWrapper text="Video may not change" position={TooltipWrapper.Positions.TOP} color={TooltipWrapper.Colors.PRIMARY}>
+                    {props => <Buttons.default {...props} onClick={() => this.setState({ ran: Math.floor(Math.random() * Object.keys(demo_urls).pop() + 1) })}>Change Video</Buttons.default>}
+                </TooltipWrapper>
+                <ChannelMessage style={{
+                    marginTop: "10px",
+                    border: "1px solid var(--background-tertiary)",
+                    borderRadius: "10px",
+                    padding: "16px 16px 10px 72px"
+                }} channel={SpoofChannel} message={SpoofMessage} />
             </>
 		)
 	}
